@@ -1,11 +1,10 @@
 package com.example.spring_react.controller;
 
-import com.example.spring_react.model.Product;
+import com.example.spring_react.model.dto.ProductRequestDTO;
+import com.example.spring_react.model.dto.ProductResponseDTO;
 import com.example.spring_react.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,10 +15,18 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
-    public List<Product> getAll() {
+    public List<ProductResponseDTO> getAll() {
 
         return productService.getAll();
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PostMapping
+    public void save(@RequestBody ProductRequestDTO data) {
+
+        productService.save(data);
     }
 
 }
